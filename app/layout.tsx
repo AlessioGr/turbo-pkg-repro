@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import {compile} from 'json-schema-to-typescript'
+import {JSONSchema4TypeName} from "json-schema";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,10 +25,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const testData: JSONSchema4TypeName = {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string'
+      },
+      age: {
+        type: 'number'
+      }
+    }
+  }
+
+  const compiled = compile(testData, 'TestSchema', {bannerComment: ''})
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <div>
+          Compiled: <br/><br/><br/>
+          <pre>{compiled}</pre>
+        </div>
       </body>
     </html>
   );
