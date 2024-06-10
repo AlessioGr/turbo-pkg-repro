@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import {compile} from 'json-schema-to-typescript'
-import {JSONSchema4TypeName} from "json-schema";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const testData: JSONSchema4TypeName = {
+  const testData: any = {
     type: 'object',
     properties: {
       name: {
